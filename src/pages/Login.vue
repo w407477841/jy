@@ -84,7 +84,8 @@
 				type:0,
 				labels:[{username:"用户名/手机号",username2:"用户名",password:"密码"},{username:"手机号",username2:"手机号",password:"验证码"}],
 				disabled:false,
-				time:120
+				time:120,
+				loginMethod:["normal","phone"]
 			}
 		},
 		methods:{
@@ -130,7 +131,8 @@
   				}*/
   				data: {
     				username:this.username,
-    				password:this.password
+    				password:this.password,
+    				loginMethod:this.loginMethod[this.type]
   				}
 				}).then(response=>{
 					if(response.status==200&&response.data.status==0){

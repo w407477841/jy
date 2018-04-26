@@ -119,7 +119,7 @@
 		data(){
 			return {
 				loading :false,
-				active : 2,//当前执行步骤
+				active : 0,//当前执行步骤
 				passtype :'password',//密码框
 				disabled :false ,//验证码按钮
 				time : 120, //验证码禁用时间
@@ -270,7 +270,42 @@
         });
 		},handleRegister(){
 			//this.$message({message:'等待审核，通过后会有短信通知',type:'success',showClose:true});
-			this.active=3
+			
+			 this.$refs["form3"].validate((valid) => {
+          if (valid) {
+				this.$http({
+  				method: 'post',
+  				responseType : 'json',
+  				url: this.$store.state.baseUrl+'/register',
+  				params: {
+  				},
+  				data: this.form3
+				}).then(response=>{
+					this.$message({message:'等待审核，通过后会有短信通知',type:'success',showClose:true});
+					this.active=3
+				}).catch(error => {
+					if (error.response) {
+     			 // 请求已发出，但服务器响应的状态码不在 2xx 范围内
+      					if(error.response.status==403){
+      						this.$message({message:'登录过期',type:'error',showClose:true});
+      						this.$store.commit('logout')
+      						this.$router.push({ path: ('/login') })
+      					}else if(error.response.status==401){
+      						this.$message({message:'用户名/密码错误',type:'error',showClose:true});
+      					}else if(error.response.status==400){
+      						this.$message({message:error.response.data.msg,type:'error',showClose:true});
+      					}
+   					 } else {
+      					this.$message({message:'服务器异常，请联系管理员',type:'error',showClose:true});
+    				}
+          })
+          	
+          } else {
+            return false;
+          }
+        });
+			
+			
 		},downTime(timer){
 			if(this.disabled){
 			if(timer){
