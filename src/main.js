@@ -26,6 +26,8 @@ const store = new Vuex.Store({
     token : '',//令牌
     baseUrl : 'http://192.168.0.166:8090',//服务器地址
     username :'',
+    factory : 0,
+    userType :'',
     themecolor:'#40DCFF',
     menus:[],//导航菜单
     connect: false,//socket是否连接
@@ -42,6 +44,8 @@ const store = new Vuex.Store({
       state.isLogin=true
       state.token=payload.token
       state.username =payload.username
+      state.userType =payload.type
+      state.factory = payload.factory
       //初始化消息服务
       this.commit('initNotice')
       
@@ -55,6 +59,8 @@ const store = new Vuex.Store({
       state.isLogin=false
       state.token=''
       state.username =''
+      state.userType=''
+      state.factory= 0
       state.menus=[]
       if(state.connect&&state.stompClient !=null){
       	try{
@@ -78,7 +84,7 @@ const store = new Vuex.Store({
             	//订阅用户消息
 						this.commit('subscribe',{destination:'/user/'+state.username+'/message'})
 							//广播登录信息
-						this.commit('sendLogin')
+						//this.commit('sendLogin')
             },(frame)=>{//error
             console.log('unconnection')
             if(state.need_reconnect){//如果需要重连

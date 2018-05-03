@@ -138,7 +138,13 @@
 					if(response.status==200&&response.data.status==0){
 						//this.username=response.data.username
 						this.disabled=false;
-						this.$store.commit('login',{token:response.data.access_token,username:response.data.username})
+						this.$store.commit('login',
+						{
+							token:response.data.access_token,
+							username:response.data.username,
+							type:response.data.type,
+							factory:response.data.factory
+						})
 						this.$message({message:'登录成功',type:'success',showClose:true});
 						this.loadMenu()
 						
