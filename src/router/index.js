@@ -39,7 +39,7 @@ import FactoryAdd from '@/pages/factory/Add'
 import FactoryEdit from '@/pages/factory/Edit'
 import Equipment from '@/pages/equipment/Equipment'
 import PLC from '@/pages/equipment/PLC'
-import Video from '@/pages/equipment/Video'
+import Video from '@/pages/equipment/video/Video'
 
 Vue.use(Router)
 export default new Router({

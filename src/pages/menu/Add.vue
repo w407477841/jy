@@ -54,7 +54,7 @@
 			this.$http({
   				method: 'get',
   				responseType : 'json',
-  				url: 'http://192.168.0.166:8090/'+this.module+'?status=1',
+  				url: this.$store.state.baseUrl+'/'+this.module+'?status=1',
   				params: {
     				access_token:this.$store.state.token
   				}
