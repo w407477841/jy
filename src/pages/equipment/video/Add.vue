@@ -1,24 +1,29 @@
 <template>
 	<div class="container">
 	<el-form ref="form" :model="form" label-width="80px" v-loading="loading">
-  <el-form-item label="菜单">
-    <el-input v-model="form.txt" clearable></el-input>
+  <el-form-item label="视频名称">
+    <el-input v-model="form.videoName" clearable></el-input>
   </el-form-item>
-  <el-form-item label="菜单地址">
-    <el-input v-model="form.url" clearable></el-input>
+  <el-form-item label="所属工厂" v-if="showFactory">
+  	<el-select v-model="form.factoryId">
+  		<el-option v-for="f in factorys" :label="f.name" :value='f.id' :key="f.id"></el-option>
+  	</el-select>
   </el-form-item>
-  <el-form-item label="status">
-  	<el-select v-model="form.status" placeholder="菜单状态">
-       <el-option label="禁用" :value='0'></el-option>
-       <el-option label="启用" :value='1'></el-option>
-    </el-select>
+  <el-form-item label="IP地址">
+   <el-input v-model="form.ipAddr" clearable></el-input>
   </el-form-item>
-  <el-form-item label="父级菜单">
-    	<el-select v-model="form.pid" placeholder="菜单状态">
-    		<el-option :label="'根目录'" :value='0'></el-option>
-        <el-option v-for="p in parents" :label="p.txt" :value='p.id' :key="p.id"></el-option>
-    </el-select>
-    </el-form-item>
+  
+  <el-form-item label="端口号">
+    <el-input v-model="form.port" clearable></el-input>
+  </el-form-item>
+  
+  <el-form-item label="用户名">
+    <el-input v-model="form.username" clearable></el-input>
+  </el-form-item>
+  
+  <el-form-item label="密码">
+    <el-input v-model="form.password" clearable></el-input>
+  </el-form-item>
   <el-form-item>
     <el-button type="primary" @click="onCreate">立即创建</el-button>
     <el-button>取消</el-button>
@@ -29,37 +34,20 @@
 <script>
 	
 	export default{
+		
+		
+		
 		created(){
-			this.loadparents()
-		}, 
-		data(){
-			return {
-				loading:false,
-				module:'menu',
-				parents:[],
-				form:{
-					
-				}
-			}
-		},
-		methods:{
-			handleADFocus(){
-				 this.$notify({
-          title: '警告',
-          message: '由三位0/1组成； 1代表可用、0代表不可用 ；第一位代表WEB端、第二位代表安卓、第三位代表IOS。 例如：111',
-          type: 'warning'
-        });
-			},
-		loadparents(){
+			if(this.showFactory){//企业用户
 			this.$http({
   				method: 'get',
   				responseType : 'json',
-  				url: 'http://192.168.0.166:8090/'+this.module+'?status=1',
+  				url: this.$store.state.baseUrl+'/factory',
   				params: {
     				access_token:this.$store.state.token
   				}
 				}).then(response=>{
-					this.parents=response.data
+					this.factorys=response.data
 				}).catch(error => {
 					if (error.response) {
      			 // 请求已发出，但服务器响应的状态码不在 2xx 范围内
@@ -77,8 +65,31 @@
     				}
   					 // console.log(error.config);
 					//this.$message({message:'用户名/密码错误',type:'error',showClose:true});
-          })
+          	})
+			}else{
+				this.form.factoryId=this.$store.state.factory
+			}
+			
+		}, 
+		data(){
+			return {
+				loading:false,
+				module:'videoConfig',
+				factorys:[],
+				form:{
+					
+				}
+			}
 		},
+		methods:{
+			handleADFocus(){
+				 this.$notify({
+          title: '警告',
+          message: '由三位0/1组成； 1代表可用、0代表不可用 ；第一位代表WEB端、第二位代表安卓、第三位代表IOS。 例如：111',
+          type: 'warning'
+        });
+			},
+		
     	onCreate(){//创建
     	this.loading=true
 				this.$http({
@@ -92,7 +103,6 @@
 				}).then(response=>{
 					this.$message({message:'创建成功',type:'success',showClose:true});
 					this.loading=false
-					this.loadparents()					
 					
 				}).catch(error => {
 					this.loading=false
@@ -114,6 +124,17 @@
     				}
           })
     }
+			
+		},computed:{
+			
+			showFactory(){
+				if(this.$store.state.userType=='企业用户'){
+					return true;
+				}
+				return false;
+				
+			}
+			
 			
 		}
 		

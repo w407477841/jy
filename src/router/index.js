@@ -40,7 +40,7 @@ import FactoryEdit from '@/pages/factory/Edit'
 import Equipment from '@/pages/equipment/Equipment'
 import PLC from '@/pages/equipment/PLC'
 import Video from '@/pages/equipment/video/Video'
-
+import VideoAdd from '@/pages/equipment/video/Add'
 Vue.use(Router)
 export default new Router({
   routes: [
@@ -192,7 +192,8 @@ export default new Router({
     	component: Equipment,
     	 children: [
           {path: 'plc', component:PLC },
-          {path: 'video', component:Video }
+          {path: 'video', component:Video },
+          {path: 'videoConfig/add',component:VideoAdd}
         ]
     }
   ]

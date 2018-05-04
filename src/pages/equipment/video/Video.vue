@@ -8,14 +8,14 @@
   <el-alert
     title="操作说明"
     type="success"
-    description="删除/修改需要 单击列表选择后操作；选中后的行会高亮显示"
+    description="删除/修改需要 单击列表选择后操作；选中后的行会高亮显示;企业用户可操作所有视频,工厂用户只能操作所属工厂的视频"
     show-icon>
   </el-alert>
   		
 		<el-input placeholder="请输入视频名称" v-model="query.videoName" class="input-with-select">
     <el-button slot="append" icon="el-icon-search" @click="search"></el-button>
   </el-input>
-  <Right :rights="rights" :module="module" :currentRow="currentRow" :tableData="tableData" :moduleId="18" v-on:initRight="initRight" v-on:deleteRow="deleteRow"></Right>
+  <Right :rights="rights" :module="module" :currentRow="currentRow" :tableData="tableData" :moduleId="24" v-on:initRight="initRight" v-on:deleteRow="deleteRow"></Right>
   
 		 <el-table
     :data="tableData"
@@ -166,7 +166,7 @@
     		
     		return {
     				videoName : this.query.videoName,
-    				factory_id : this.$store.state.factory 
+    				factoryId : this.$store.state.factory 
     		}
     		
     	}
