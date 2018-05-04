@@ -39,7 +39,7 @@
 			this.$http({
   				method: 'get',
   				responseType : 'json',
-  				url: 'http://192.168.0.166:8090/user/'+this.$route.params.id+'/',
+  				url: this.$store.state.baseUrl+'/user/'+this.$route.params.id+'/',
   				params: {
     				access_token:this.$store.state.token
   				}
@@ -108,7 +108,7 @@
 				this.$http({
   				method: 'put',
   				responseType : 'json',
-  				url: 'http://192.168.0.166:8090/user',
+  				url: this.$store.state.baseUrl+'/user',
   				params: {
     				access_token:this.$store.state.token
   				},

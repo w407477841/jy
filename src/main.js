@@ -24,7 +24,7 @@ const store = new Vuex.Store({
   state: {
     isLogin:false,//是否登录
     token : '',//令牌
-    baseUrl : 'http://192.168.0.166:8090',//服务器地址
+    baseUrl : 'http://www.jszyiot.com:28080',//服务器地址
     username :'',
     factory : 0,
     userType :'',
