@@ -19,7 +19,11 @@
         <i class="el-icon-document"></i>
         <span slot="title">仪器配置</span>
       </el-menu-item>
-      <el-menu-item index="/equipment" @click="video">
+      <!--el-menu-item index="/equipment" @click="video">
+        <i class="el-icon-setting"></i>
+        <span slot="title">视频配置</span>
+      </el-menu-item-->
+      <el-menu-item index="/equipment/video" >
         <i class="el-icon-setting"></i>
         <span slot="title">视频配置</span>
       </el-menu-item>

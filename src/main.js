@@ -75,7 +75,7 @@ const store = new Vuex.Store({
       }
     },
     initNotice(state,payload){//初始化  socket
-    				state.socket = new SockJS("http://192.168.0.166:8090/hello");
+    				state.socket = new SockJS(state.baseUrl+"/hello");
             state.stompClient = Stomp.over(state.socket)  
             state.stompClient.connect({}, (frame)=> {//success 
             	state.connect=true
