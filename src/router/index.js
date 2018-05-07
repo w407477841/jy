@@ -41,6 +41,7 @@ import Equipment from '@/pages/equipment/Equipment'
 import PLC from '@/pages/equipment/PLC'
 import Video from '@/pages/equipment/video/Video'
 import VideoAdd from '@/pages/equipment/video/Add'
+import VideoEdit from '@/pages/equipment/video/Edit'
 Vue.use(Router)
 export default new Router({
   routes: [
@@ -193,7 +194,8 @@ export default new Router({
     	 children: [
           {path: 'plc', component:PLC },
           {path: 'video', component:Video },
-          {path: 'videoConfig/add',component:VideoAdd}
+          {path: 'videoConfig/add',component:VideoAdd},
+          {path: 'videoConfig/edit/:id',component:VideoEdit}
         ]
     }
   ]
