@@ -9,11 +9,12 @@ import ElementUI from 'element-ui'
 import './theme/index.css'
 //import 'element-ui/lib/theme-chalk/index.css'
 import axios from 'axios'
-
+import echarts from 'echarts'
 import jquery from  './js/jquery-1.7.1.min.js'
 //import WebVideoCtrl from './js/webVideoCtrl.js'
 
 Vue.prototype.$http = axios
+Vue.prototype.$echarts=echarts
 Vue.use(Vuex)
 Vue.use(ElementUI)
 //Vue.config.productionTip = false
@@ -24,7 +25,7 @@ const store = new Vuex.Store({
   state: {
     isLogin:false,//是否登录
     token : '',//令牌
-    baseUrl : 'http://www.jszyiot.com:28080',//服务器地址
+    baseUrl : 'http://192.168.0.166:8090',//服务器地址
     username :'',
     factory : 0,
     userType :'',

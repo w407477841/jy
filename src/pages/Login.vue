@@ -61,12 +61,39 @@
 			</el-col>
 			<el-col :span="6"><div class="space"></div></el-col>
 				
-		</el-row>	
+		</el-row>
+		<el-row>
+			<el-col :span="24">
+				<div ref="charts" style="height:400px">
+					
+				</div>
+				
+			</el-col>
+		</el-row>
 	</div>
 </template>
 <script>
 	import Vue from 'vue'
 	export default{
+		mounted(){
+			let myChart = this.$echarts.init(this.$refs.charts);
+// 绘制图表
+myChart.setOption({
+    title: {
+        text: 'ECharts 入门示例'
+    },
+    tooltip: {},
+    xAxis: {
+        data: ['衬衫', '羊毛衫', '雪纺衫', '裤子', '高跟鞋', '袜子']
+    },
+    yAxis: {},
+    series: [{
+        name: '销量',
+        type: 'bar',
+        data: [5, 20, 36, 10, 10, 20]
+    }]
+})
+	},
 		created(){
 			if(this.isLogin){
 				this.username=this.$store.state.username
